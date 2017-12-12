@@ -1,0 +1,27 @@
+#!/bin/sh
+usage(){
+	echo "usage: myscp -sl remote_path|local_path local_path|remote_path
+	myscp -s remote_path local_path
+	myscp -l local_path remote_path";
+	exit 1;
+}
+
+option=$1
+path1=$2
+path2=$3
+
+if [ -z "$option" -o -z "$path1" -o -z "$path2" ];then
+	usage
+fi
+
+if [ "$option" = "-s" ];then
+	remote_path=$path1
+	local_path=$path2
+	scp wangyafei@10.100.37.${remote_path} ${local_path}
+fi
+if [ "$option" = "-l" ];then
+	local_path=$path1
+	remote_path=$path2
+	scp ${local_path} wangyafei@10.100.37.${remote_path}
+fi
+
